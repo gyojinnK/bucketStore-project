@@ -1,8 +1,7 @@
-export const initialUrl = "https://bucket-assignment-vercel.vercel.app/api";
+const initialUrl = "http://localhost:3000/goods/list";
 
-export const fetchUrl = async (url: string) => {
-  const response = await fetch(url);
-  console.log(response.json);
+export const fetchUrl = async (pageParam: number, type: string) => {
+  const response = await fetch(`${initialUrl}?type=${type}&page=${pageParam}`);
   return response.json();
 };
 

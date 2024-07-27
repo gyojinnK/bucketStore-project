@@ -2,7 +2,7 @@ import Logo from "./logo";
 
 const Header = () => {
   return (
-    <div className="h-20 flex justify-between items-center bg-black">
+    <div className="h-20 flex justify-between items-center bg-black sticky">
       <Logo className="p-6" />
       <a href="https://github.com/gyojinnK">
         <span className="text-2xl font-medium text-white p-6">

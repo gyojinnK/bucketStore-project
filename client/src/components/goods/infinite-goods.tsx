@@ -1,5 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchUrl, initialUrl } from "../../lib/api";
+import { fetchUrl } from "../../lib/api";
+import InfiniteScroll from "react-infinite-scroller";
+import { GoodsTypeEnum, TGoods } from "../../lib/type";
+import Goods from "./goods";
+import Spinner from "../ui/spinner";
+import GoodsInfoBar from "./goods-info-bar";
 
 const InfiniteGoods = () => {
   const {
@@ -12,29 +17,49 @@ const InfiniteGoods = () => {
     error,
   } = useInfiniteQuery({
     queryKey: ["goods"],
-    queryFn: ({ pageParam }) => fetchUrl(pageParam),
-    initialPageParam: initialUrl,
+    queryFn: ({ pageParam }) => fetchUrl(pageParam, GoodsTypeEnum.newest),
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      return lastPage.next || undefined;
+      const currentPage = lastPage.data.data.meta.pageInfo.page;
+      const totalPages = lastPage.data.data.meta.pageInfo.pages;
+      return currentPage < totalPages + 1 ? currentPage + 1 : undefined;
     },
   });
 
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return <Spinner />;
   }
 
   if (isError) {
     return <div className="error">Error! {error.toString()}</div>;
   }
-  console.log(data);
+  // console.log(data?.pages[0].data.data.meta.pageInfo.pages);
+  // console.log(data?.pages[0].data.data.body);
   return (
-    <div>
-      {data?.pages.map((page) => {
-        return page.results.map((item: any) => {
-          return <div>{item}</div>;
-        });
-      })}
-    </div>
+    <>
+      <div>
+        <GoodsInfoBar
+          totalGoods={data?.pages[0].data.data.meta.pageInfo.pages}
+        />
+        <InfiniteScroll
+          loadMore={() => {
+            if (!isFetching) {
+              fetchNextPage();
+            }
+          }}
+          hasMore={hasNextPage}
+        >
+          <div className="grid grid-cols-4 gap-[2px]">
+            {data?.pages.map((page) => {
+              return page.data?.data.body.map((item: TGoods) => (
+                <Goods key={item.name} item={item}></Goods>
+              ));
+            })}
+          </div>
+        </InfiniteScroll>
+        {isFetching && <Spinner />}
+      </div>
+    </>
   );
 };
 

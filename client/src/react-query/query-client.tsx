@@ -8,8 +8,8 @@ import {
 export const queryClientOptions: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      staleTime: 600000, // 10분
-      gcTime: 900000, // 15분
+      // staleTime: 600000, // 10분
+      // gcTime: 900000, // 15분
       refetchOnWindowFocus: false,
     },
   },
