@@ -1,36 +1,28 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
 const app = express();
 const port = 3000;
 
-// CORS 설정
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cors());
 
-// 프록시 서버 엔드포인트
-app.get("/api", async (req, res) => {
+app.get("/goods/list", async (req, res) => {
+  const page = req.query.page || 1;
+  const type = req.query.type || "newest";
+  console.log(`Fetching data for page: ${page}`); // 로그 추가
+  console.log(`Fetching data for type: ${type}`); // 로그 추가
   try {
-    // 클라이언트가 요청한 URL 가져오기
-    const targetUrl = req.query.url;
-
-    // 실제 서버에 요청 보내기
-    const response = await axios.get(targetUrl);
-
-    // 서버 응답을 클라이언트에게 전달
+    const response = await axios.get(
+      `https://bucket-assignment-vercel.vercel.app/api?length=12&type=${type}&page=${page}`
+    );
     res.json(response.data);
   } catch (error) {
-    // 에러 처리
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching data", error: error.message });
   }
 });
 
-// 서버 시작
 app.listen(port, () => {
   console.log(`Proxy server is running on port ${port}`);
 });
