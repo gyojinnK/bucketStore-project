@@ -1,12 +1,17 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUrl } from "../../lib/api";
 import InfiniteScroll from "react-infinite-scroller";
-import { GoodsTypeEnum, TGoods } from "../../lib/type";
+import { TGoods } from "../../lib/type";
 import Goods from "./goods";
 import Spinner from "../ui/spinner";
 import GoodsInfoBar from "./goods-info-bar";
+import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
+import { useRef } from "react";
+import ScrollTopButton from "../ui/scroll-top-button";
 
 const InfiniteGoods = () => {
+  const { orderType } = useOrderTypeStore();
+
   const {
     data,
     fetchNextPage,
@@ -16,8 +21,8 @@ const InfiniteGoods = () => {
     isError,
     error,
   } = useInfiniteQuery({
-    queryKey: ["goods"],
-    queryFn: ({ pageParam }) => fetchUrl(pageParam, GoodsTypeEnum.newest),
+    queryKey: [`goods ${orderType}`],
+    queryFn: ({ pageParam }) => fetchUrl(pageParam, orderType),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const currentPage = lastPage.data.data.meta.pageInfo.page;
@@ -36,7 +41,8 @@ const InfiniteGoods = () => {
   // console.log(data?.pages[0].data.data.meta.pageInfo.pages);
   // console.log(data?.pages[0].data.data.body);
   return (
-    <>
+    <div>
+      <ScrollTopButton />
       <div>
         <GoodsInfoBar
           totalGoods={data?.pages[0].data.data.meta.pageInfo.pages}
@@ -49,17 +55,17 @@ const InfiniteGoods = () => {
           }}
           hasMore={hasNextPage}
         >
-          <div className="grid grid-cols-4 gap-[2px]">
+          <div className="grid max-[1023px]:grid-cols-2 grid-cols-4 gap-[2px]">
             {data?.pages.map((page) => {
-              return page.data?.data.body.map((item: TGoods) => (
-                <Goods key={item.name} item={item}></Goods>
+              return page.data?.data.body.map((item: TGoods, idx: number) => (
+                <Goods key={`${item.name} ${idx}`} item={item}></Goods>
               ));
             })}
           </div>
         </InfiniteScroll>
         {isFetching && <Spinner />}
       </div>
-    </>
+    </div>
   );
 };
 

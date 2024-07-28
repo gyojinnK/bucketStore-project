@@ -9,7 +9,7 @@ import InfiniteGoods from "./components/goods/infinite-goods";
 
 function App() {
   return (
-    <div className="w-screen h-screen font-pre relative">
+    <div className="w-screen h-fit font-pre relative">
       <QueryClientProvider client={queryClient}>
         <Header />
         <h1 className="text-7xl font-bold p-6 text-black">상품</h1>

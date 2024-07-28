@@ -6,20 +6,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
+import { GoodsTypeEnum } from "@/lib/type";
 
 const GoodsSortButton = () => {
+  const { orderType, updateOrderType } = useOrderTypeStore();
+
+  const updateOrderTypeHandler = (currentOrderType: GoodsTypeEnum) => {
+    updateOrderType(currentOrderType);
+  };
+
+  const typeToTextHandler = (type: GoodsTypeEnum) => {
+    switch (type) {
+      case GoodsTypeEnum.newest:
+        return "최신순";
+      case GoodsTypeEnum.low_price:
+        return "낮은 가격순";
+      case GoodsTypeEnum.high_price:
+        return "높은 가격순";
+      case GoodsTypeEnum.high_discount_rate:
+        return "할인율 높은순";
+      case GoodsTypeEnum.best:
+        return "판매 인기순";
+    }
+  };
+
   return (
-    <Select>
+    <Select onValueChange={updateOrderTypeHandler}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="최신순" />
+        <SelectValue placeholder={typeToTextHandler(orderType)} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="newest">최신순</SelectItem>
-          <SelectItem value="low_price">낮은 가격순</SelectItem>
-          <SelectItem value="high_price">높은 가격순</SelectItem>
-          <SelectItem value="high_discount_rate">할인율 높은순</SelectItem>
-          <SelectItem value="best">판매 인기순</SelectItem>
+          <SelectItem value={GoodsTypeEnum.newest}>최신순</SelectItem>
+          <SelectItem value={GoodsTypeEnum.low_price}>낮은 가격순</SelectItem>
+          <SelectItem value={GoodsTypeEnum.high_price}>높은 가격순</SelectItem>
+          <SelectItem value={GoodsTypeEnum.high_discount_rate}>
+            할인율 높은순
+          </SelectItem>
+          <SelectItem value={GoodsTypeEnum.best}>판매 인기순</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

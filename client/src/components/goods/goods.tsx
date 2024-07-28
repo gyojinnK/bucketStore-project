@@ -1,5 +1,6 @@
 import { TGoods } from "../../lib/type";
 import { generatePriceFormat } from "../../lib/util";
+import { HeartIcon } from "@heroicons/react/24/solid";
 
 type TGoodsProps = {
   item: TGoods;
@@ -7,7 +8,10 @@ type TGoodsProps = {
 
 const Goods = ({ item }: TGoodsProps) => {
   return (
-    <div className="flex flex-col gap-2 mb-12">
+    <div className="flex flex-col gap-2 mb-12 relative z-100">
+      <HeartIcon
+        className={`w-6 h-6 absolute top-2 right-2 ${"text-black/10"}`}
+      />
       <div>
         <img src={`${item.url}`} />
       </div>
@@ -23,7 +27,7 @@ const Goods = ({ item }: TGoodsProps) => {
           </p>
         </div>
       </div>
-      <p>{item.badges}</p>
+      {/* <p>{item.badges}</p> */}
     </div>
   );
 };
