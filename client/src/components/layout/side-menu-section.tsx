@@ -6,10 +6,8 @@ type TSideMenuSection = {
 
 const SideMenuSection = ({ className }: TSideMenuSection) => {
   return (
-    <div className={cn("text-black p-6", className)}>
-      <div className="text-2xl">
-        <p className="font-medium">전체</p>
-      </div>
+    <div className={cn("text-black p-6 relative", className)}>
+      <p className="font-medium sticky top-0 left-0 text-2xl pt-28">전체</p>
     </div>
   );
 };

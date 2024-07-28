@@ -1,13 +1,14 @@
+import { useGoodsStore } from "@/hook/use-goods-store";
 import GoodsSortButton from "./goods-sort-button";
 
-type TGoodsInfoBar = {
-  totalGoods: number;
-};
+const GoodsInfoBar = () => {
+  const { totalGoodsCount } = useGoodsStore();
 
-const GoodsInfoBar = ({ totalGoods }: TGoodsInfoBar) => {
   return (
     <div className="flex justify-between items-center pb-4 text-sm">
-      <p className="font-semibold">{totalGoods}개</p>
+      <p className="font-semibold">
+        {totalGoodsCount ? totalGoodsCount : "... "}개
+      </p>
       <GoodsSortButton />
     </div>
   );

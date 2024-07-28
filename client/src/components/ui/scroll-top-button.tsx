@@ -3,7 +3,7 @@ import { ChevronUpIcon } from "@radix-ui/react-icons";
 const ScrollTopButton = () => {
   return (
     <button
-      className="fixed bottom-[45%] left-[10%]"
+      className="fixed bottom-10 left-10"
       onClick={() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}

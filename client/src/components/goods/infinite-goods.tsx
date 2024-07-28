@@ -4,13 +4,14 @@ import InfiniteScroll from "react-infinite-scroller";
 import { TGoods } from "../../lib/type";
 import Goods from "./goods";
 import Spinner from "../ui/spinner";
-import GoodsInfoBar from "./goods-info-bar";
 import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
-import { useRef } from "react";
+import { useEffect } from "react";
 import ScrollTopButton from "../ui/scroll-top-button";
+import { useGoodsStore } from "@/hook/use-goods-store";
 
 const InfiniteGoods = () => {
   const { orderType } = useOrderTypeStore();
+  const { setTotalCount } = useGoodsStore();
 
   const {
     data,
@@ -21,7 +22,7 @@ const InfiniteGoods = () => {
     isError,
     error,
   } = useInfiniteQuery({
-    queryKey: [`goods ${orderType}`],
+    queryKey: ["goods", orderType],
     queryFn: ({ pageParam }) => fetchUrl(pageParam, orderType),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -30,6 +31,10 @@ const InfiniteGoods = () => {
       return currentPage < totalPages + 1 ? currentPage + 1 : undefined;
     },
   });
+
+  useEffect(() => {
+    setTotalCount(data?.pages[0].data.data.meta.pageInfo.pages);
+  }, [data]);
 
   if (isLoading) {
     return <Spinner />;
@@ -41,12 +46,9 @@ const InfiniteGoods = () => {
   // console.log(data?.pages[0].data.data.meta.pageInfo.pages);
   // console.log(data?.pages[0].data.data.body);
   return (
-    <div>
+    <div className="relative">
       <ScrollTopButton />
       <div>
-        <GoodsInfoBar
-          totalGoods={data?.pages[0].data.data.meta.pageInfo.pages}
-        />
         <InfiniteScroll
           loadMore={() => {
             if (!isFetching) {
