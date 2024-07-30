@@ -1,6 +1,6 @@
 import { useOrderTypeStore } from "./useOrderTypeStore";
 import { fetchUrl } from "@/lib/api";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const useInfiniteGoods = () => {
   const { orderType } = useOrderTypeStore();
