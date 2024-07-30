@@ -33,7 +33,7 @@ const GoodsSortButton = () => {
 
   return (
     <Select onValueChange={updateOrderTypeHandler}>
-      <SelectTrigger className="w-32 text-sm font-medium">
+      <SelectTrigger className="w-28 py-0 text-sm font-medium">
         <SelectValue placeholder={typeToTextHandler(orderType)} />
       </SelectTrigger>
       <SelectContent>

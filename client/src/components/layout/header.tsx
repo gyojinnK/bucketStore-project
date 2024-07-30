@@ -3,7 +3,7 @@ import { GitHubLogoIcon, NotionLogoIcon } from "@radix-ui/react-icons";
 
 const Header = () => {
   return (
-    <div className="bg-black sticky top-0 left-0 z-10">
+    <div className="bg-black sticky top-0 left-0 z-10 max-lg:hidden">
       <div className="px-6 h-24 flex justify-between items-center max-w-[1920px] m-auto">
         <div className="h-20 flex gap-4 max-[1399px]:flex-col max-[1399px]:gap-0 max-[1399px]:justify-center max-[1399px]:items-start items-center">
           <Logo className="" />

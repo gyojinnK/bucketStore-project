@@ -7,7 +7,7 @@ type TGoodsSection = {
 };
 
 const GoodsSection = ({ children, className }: TGoodsSection) => {
-  return <div className={cn("px-6", className)}>{children}</div>;
+  return <div className={cn("px-6 max-lg:px-0", className)}>{children}</div>;
 };
 
 export default GoodsSection;

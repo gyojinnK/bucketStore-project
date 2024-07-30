@@ -7,6 +7,7 @@ import { queryClient } from "./react-query/query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import InfiniteGoods from "./components/goods/infinite-goods";
 import GoodsInfoBar from "./components/goods/goods-info-bar";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 function App() {
   return (
@@ -14,10 +15,15 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Header />
         <div className="max-w-[1920px] m-auto">
-          <h1 className="text-7xl font-bold p-6 text-black">상품</h1>
-          <div className="grid grid-cols-4 min-h-[80vh]">
-            <SideMenuSection className="col-span-1" />
-            <GoodsSection className="col-span-3 text-black">
+          <div className="flex gap-2 items-center p-6 max-lg:pt-4 max-lg:pb-0 max-lg:px-3">
+            <ArrowLeftIcon className="w-6 h-6 lg:hidden" />
+            <h1 className="text-7xl font-bold text-black max-lg:text-xl max-lg:font-medium ">
+              상품
+            </h1>
+          </div>
+          <div className="grid grid-cols-4 min-h-[80vh] max-lg:min-h-none max-lg:block">
+            <SideMenuSection className="col-span-1 max-lg:col-span-none" />
+            <GoodsSection className="col-span-3 text-black max-lg:col-span-none">
               <GoodsInfoBar />
               <InfiniteGoods />
             </GoodsSection>

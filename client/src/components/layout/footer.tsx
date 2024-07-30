@@ -5,8 +5,8 @@ const Footer = () => {
     <>
       <FooterTopBorder />
       <div className="bg-black ">
-        <div className="flex justify-between items-center max-w-[1920px] m-auto">
-          <div className="text-5xl text-white px-6 py-12">
+        <div className="flex justify-end items-center max-w-[1920px] m-auto">
+          <div className="text-5xl text-white px-6 py-12 text-right">
             <p>Frontend Developer </p>
             <span className="">
               문제를
