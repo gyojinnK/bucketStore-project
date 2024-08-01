@@ -5,8 +5,8 @@ import SideMenuSection from "./components/layout/side-menu-section";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./react-query/query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import InfiniteGoods from "./components/goods/infinite-goods";
-import GoodsInfoBar from "./components/goods/goods-info-bar";
+import InfiniteGoods from "./goods/infinite-goods";
+import GoodsInfoBar from "./goods/goods-info-bar";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 function App() {

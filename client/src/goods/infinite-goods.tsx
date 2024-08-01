@@ -1,11 +1,11 @@
 import InfiniteScroll from "react-infinite-scroller";
-import { TGoods } from "../../lib/type";
+import { TGoods } from "../lib/type";
 import Goods from "./goods";
-import Spinner from "../ui/spinner";
+import Spinner from "../components/ui/spinner";
 import { useEffect } from "react";
-import ScrollTopButton from "../ui/scroll-top-button";
-import { useGoodsStore } from "@/hook/use-goods-store";
-import useInfiniteGoods from "@/hook/useInfiniteGoods";
+import ScrollTopButton from "../components/ui/scroll-top-button";
+import { useGoodsStore } from "@/store/use-goods-store";
+import useInfiniteGoods from "./hooks/useInfiniteGoods";
 
 const InfiniteGoods = () => {
   const { setTotalCount } = useGoodsStore();

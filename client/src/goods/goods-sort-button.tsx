@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
+import { useOrderTypeStore } from "@/store/use-order-type-store";
 import { GoodsTypeEnum } from "@/lib/type";
 
 const GoodsSortButton = () => {

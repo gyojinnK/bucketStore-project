@@ -1,8 +1,11 @@
-import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
-import { GoodsTypeEnum, TGoods } from "../../lib/type";
-import { generatePriceFormat } from "../../lib/util";
+import { GoodsTypeEnum, TGoods } from "../lib/type";
+import { generatePriceFormat } from "../lib/util";
 import { HeartIcon } from "@heroicons/react/24/solid";
-import TypeBadge from "../ui/type-badge";
+import TypeBadge from "../components/ui/type-badge";
+import { useEffect, useState } from "react";
+import { useOrderTypeStore } from "../store/use-order-type-store";
+import { useLikeStore } from "@/store/use-like-store";
+import usePatchLike from "./hooks/use-patch-like";
 
 type TGoodsProps = {
   item: TGoods;
@@ -10,13 +13,22 @@ type TGoodsProps = {
 
 const Goods = ({ item }: TGoodsProps) => {
   const { orderType } = useOrderTypeStore();
+  const { likeGoods } = useLikeStore();
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const { patchLike } = usePatchLike(item, isLike);
 
   const typeText = orderType === GoodsTypeEnum.newest ? "NEW" : null;
+  useEffect(() => {
+    setIsLike(likeGoods.includes(item.name));
+  }, [likeGoods, item.name]);
 
   return (
     <div className="flex flex-col gap-2 mb-12 relative z-0">
       <HeartIcon
-        className={`w-6 h-6 absolute top-2 right-2 ${"text-black/10"}`}
+        className={`w-6 h-6 absolute top-2 right-2 ${
+          isLike ? "text-red-500" : "text-black/10"
+        }`}
+        onClick={() => patchLike()}
       />
       <div>
         <img src={`${item.url}`} />

@@ -1,4 +1,4 @@
-import { useOrderTypeStore } from "./useOrderTypeStore";
+import { useOrderTypeStore } from "../../store/use-order-type-store";
 import { fetchUrl } from "@/lib/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 

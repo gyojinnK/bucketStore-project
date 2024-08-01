@@ -1,4 +1,4 @@
-import { useGoodsStore } from "@/hook/use-goods-store";
+import { useGoodsStore } from "@/store/use-goods-store";
 import GoodsSortButton from "./goods-sort-button";
 
 const GoodsInfoBar = () => {
