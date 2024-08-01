@@ -6,10 +6,10 @@ export const fetchUrl = async (pageParam: number, type: string) => {
 };
 
 export const virtualPatchAPI = async (): Promise<boolean> => {
-  console.log("START!");
+  console.log("- API Call -");
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log("DONE!");
+      console.log("- API Done -");
       resolve(true);
     }, 5000);
   });
