@@ -1,12 +1,18 @@
-import { TGoods } from "../../lib/type";
+import { useOrderTypeStore } from "@/hook/useOrderTypeStore";
+import { GoodsTypeEnum, TGoods } from "../../lib/type";
 import { generatePriceFormat } from "../../lib/util";
 import { HeartIcon } from "@heroicons/react/24/solid";
+import TypeBadge from "../ui/type-badge";
 
 type TGoodsProps = {
   item: TGoods;
 };
 
 const Goods = ({ item }: TGoodsProps) => {
+  const { orderType } = useOrderTypeStore();
+
+  const typeText = orderType === GoodsTypeEnum.newest ? "NEW" : null;
+
   return (
     <div className="flex flex-col gap-2 mb-12 relative z-0">
       <HeartIcon
@@ -27,7 +33,7 @@ const Goods = ({ item }: TGoodsProps) => {
           </p>
         </div>
       </div>
-      {/* <p>{item.badges}</p> */}
+      {typeText && <TypeBadge typeText={typeText} />}
     </div>
   );
 };
